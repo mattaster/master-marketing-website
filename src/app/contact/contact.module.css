@@ -1,23 +1,23 @@
 .container {
     min-height: 100vh;
-    padding: 5rem 2rem;
-    background: var(--secondary-color);
+    padding: 8rem 2rem;
+    background: var(--bg-secondary);
 }
 
 .wrapper {
-    max-width: 1000px;
+    max-width: 1100px;
     margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr 1.5fr;
-    gap: 4rem;
-    background: white;
-    border-radius: 20px;
+    gap: 0;
+    background: var(--bg-color);
+    border-radius: var(--radius-lg);
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
 }
 
 .info {
-    background: var(--primary-dark);
+    background: var(--brand-dark);
     color: white;
     padding: 4rem 3rem;
     display: flex;
@@ -28,82 +28,91 @@
 .info h1 {
     font-size: 2.5rem;
     margin-bottom: 1rem;
+    color: white;
 }
 
 .info p {
     opacity: 0.9;
     margin-bottom: 3rem;
+    color: rgba(255, 255, 255, 0.9);
 }
 
 .detailItem {
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
 }
 
 .detailItem h3 {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 1px;
     opacity: 0.7;
     margin-bottom: 0.5rem;
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .detailItem a,
 .detailItem p {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     color: white;
     opacity: 1;
 }
 
 .formSection {
-    padding: 4rem 3rem;
+    padding: 4rem;
 }
 
 .formGroup {
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
 }
 
 .formGroup label {
     display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-    color: #333;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 0.9rem;
 }
 
 .formGroup input,
 .formGroup textarea {
     width: 100%;
-    padding: 0.8rem;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    padding: 1rem;
+    background: var(--bg-secondary);
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
     font-family: inherit;
     font-size: 1rem;
-    transition: border-color 0.3s;
+    color: var(--text-primary);
+    transition: all 0.2s;
 }
 
 .formGroup input:focus,
 .formGroup textarea:focus {
     outline: none;
-    border-color: var(--primary-color);
+    background: var(--bg-color);
+    border-color: var(--brand-primary);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
 }
 
 .submitBtn {
-    background: var(--primary-color);
+    background: var(--brand-primary);
     color: white;
     border: none;
-    padding: 1rem 2rem;
-    border-radius: 5px;
+    padding: 1rem 2.5rem;
+    border-radius: var(--radius-sm);
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: all 0.2s;
     width: 100%;
 }
 
 .submitBtn:hover {
-    background: var(--primary-dark);
+    background: var(--brand-dark);
+    transform: translateY(-2px);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
     .wrapper {
         grid-template-columns: 1fr;
     }

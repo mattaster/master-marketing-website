@@ -3,28 +3,68 @@
 }
 
 .hero {
-  height: 80vh;
+  position: relative;
+  min-height: 85vh;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  background: linear-gradient(135deg, var(--secondary-color) 0%, #FFFFFF 100%);
   padding: 0 2rem;
+  overflow: hidden;
 }
 
-.heroContent h1 {
-  font-size: 3.5rem;
+.heroBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.1) 0%, rgba(255, 255, 255, 0) 50%);
+  z-index: -1;
+  animation: pulse 8s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+}
+
+.heroContent {
+  max-width: 800px;
+  margin: 0 auto;
+  z-index: 1;
+}
+
+.heroTitle {
+  font-size: 4rem;
   margin-bottom: 1.5rem;
-  background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.gradientText {
+  background: linear-gradient(135deg, var(--brand-primary), var(--brand-accent));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.heroContent p {
-  font-size: 1.25rem;
-  color: #666;
-  max-width: 600px;
-  margin: 0 auto 2.5rem;
+.heroSubtitle {
+  font-size: 1.35rem;
+  line-height: 1.6;
+  margin-bottom: 3rem;
+  color: var(--text-secondary);
 }
 
 .ctaGroup {
@@ -34,88 +74,125 @@
 }
 
 .primaryBtn {
-  background: var(--primary-color);
+  background: var(--brand-primary);
   color: white;
-  padding: 0.8rem 2rem;
-  border-radius: 5px;
+  padding: 1rem 2.5rem;
+  border-radius: var(--radius-sm);
   font-weight: 600;
-  transition: background 0.3s ease;
+  transition: all var(--transition-fast);
+  box-shadow: 0 4px 14px 0 rgba(37, 99, 235, 0.39);
 }
 
 .primaryBtn:hover {
-  background: var(--primary-dark);
+  background: var(--brand-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px 0 rgba(37, 99, 235, 0.23);
 }
 
 .secondaryBtn {
   background: transparent;
-  color: var(--primary-color);
-  padding: 0.8rem 2rem;
-  border-radius: 5px;
+  color: var(--brand-primary);
+  padding: 1rem 2.5rem;
+  border-radius: var(--radius-sm);
   font-weight: 600;
-  border: 2px solid var(--primary-color);
-  transition: all 0.3s ease;
+  border: 1px solid var(--brand-primary);
+  transition: all var(--transition-fast);
 }
 
 .secondaryBtn:hover {
-  background: var(--primary-color);
-  color: white;
+  background: rgba(37, 99, 235, 0.05);
 }
 
 .features {
+  padding: 6rem 2rem;
+  background: var(--bg-secondary);
+}
+
+.featuresContainer {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
-  padding: 5rem 2rem;
   max-width: 1200px;
   margin: 0 auto;
 }
 
 .featureCard {
-  background: white;
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s ease;
-  border: 1px solid #eee;
+  padding: 3rem;
+  border-radius: var(--radius-md);
+  transition: transform var(--transition-fast);
+  background: var(--bg-color);
+  /* Fallback */
+  background: rgba(255, 255, 255, 0.5);
+  /* Glass variant light */
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+@media (prefers-color-scheme: dark) {
+  .heroBackground {
+    background: radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.2) 0%, rgba(15, 23, 42, 0) 60%);
+  }
+
+  .featureCard {
+    background: rgba(30, 41, 59, 0.5);
+    /* Glass variant dark */
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .secondaryBtn {
+    color: var(--brand-dark);
+    border-color: var(--brand-accent);
+    color: var(--brand-accent);
+  }
 }
 
 .featureCard:hover {
   transform: translateY(-5px);
-  border-color: var(--primary-color);
+}
+
+.iconWrapper {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .featureCard h3 {
-  color: var(--primary-dark);
+  color: var(--text-primary);
   margin-bottom: 1rem;
+  font-size: 1.5rem;
 }
 
 .aboutPreview {
-  background: var(--secondary-color);
-  padding: 5rem 2rem;
+  padding: 8rem 2rem;
   text-align: center;
+}
+
+.aboutContainer {
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .aboutPreview h2 {
   font-size: 2.5rem;
-  color: var(--primary-dark);
   margin-bottom: 1.5rem;
 }
 
-.aboutPreview p {
-  max-width: 700px;
-  margin: 0 auto 2rem;
-  font-size: 1.1rem;
-  color: #555;
-}
-
 .textLink {
-  color: var(--primary-color);
+  color: var(--brand-primary);
   font-weight: 600;
   font-size: 1.1rem;
+  display: inline-block;
+  margin-top: 1rem;
 }
 
 @media (max-width: 768px) {
-  .heroContent h1 {
+  .heroTitle {
     font-size: 2.5rem;
+  }
+
+  .heroContent {
+    padding-top: 2rem;
+  }
+
+  .ctaGroup {
+    flex-direction: column;
   }
 }

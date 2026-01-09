@@ -1,22 +1,54 @@
 :root {
-  --primary-color: #4169E1; /* Royal Blue */
-  --primary-dark: #27408B;
-  --secondary-color: #F8F9FA;
-  --text-color: #333333;
-  --background-color: #FFFFFF;
-  --accent-color: #E6E6FA; /* Lavender for subtle accents */
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --glass-bg: rgba(255, 255, 255, 0.8);
-  --glass-border: rgba(255, 255, 255, 0.3);
+  /* Light Mode Palette */
+  --bg-color: #FFFFFF;
+  --bg-secondary: #F8FAFC;
+  --text-primary: #1E293B;
+  /* Slate 900 */
+  --text-secondary: #64748B;
+  /* Slate 500 */
+
+  /* Brand Colors - Sharp & Premium */
+  --brand-primary: #2563EB;
+  /* Royal Blue */
+  --brand-accent: #3B82F6;
+  /* Electric Blue */
+  --brand-dark: #1E3A8A;
+  /* Midnight Blue */
+
+  /* Glassmorphism */
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+
+  /* Utils */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --transition-fast: 0.2s ease;
+  --transition-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --text-color: #F8F9FA;
-    --background-color: #121212;
-    --secondary-color: #1E1E1E;
-    --glass-bg: rgba(30, 30, 30, 0.8);
+    /* Dark Mode Palette */
+    --bg-color: #0F172A;
+    /* Slate 950 */
+    --bg-secondary: #1E293B;
+    /* Slate 900 */
+    --text-primary: #F1F5F9;
+    /* Slate 100 */
+    --text-secondary: #94A3B8;
+    /* Slate 400 */
+
+    /* Brand Adjustment for Dark Mode */
+    --brand-primary: #3B82F6;
+    --brand-accent: #60A5FA;
+    --brand-dark: #93C5FD;
+
+    /* Glassmorphism Dark */
+    --glass-bg: rgba(30, 41, 59, 0.7);
     --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
   }
 }
 
@@ -30,10 +62,12 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
-  font-family: var(--font-sans);
-  background-color: var(--background-color);
-  color: var(--text-color);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-primary);
   line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 a {
@@ -41,7 +75,29 @@ a {
   text-decoration: none;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  line-height: 1.2;
-  margin-bottom: 1rem;
+/* Modern Reset Extensions */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  /* Tight tracking for modern feel */
+  color: var(--text-primary);
+}
+
+p {
+  color: var(--text-secondary);
+}
+
+/* Utility Classes */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
 }
