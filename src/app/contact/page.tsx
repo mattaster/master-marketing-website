@@ -1,3 +1,4 @@
+import Script from 'next/script';
 import styles from './contact.module.css';
 
 export default function Contact() {
@@ -25,24 +26,8 @@ export default function Contact() {
                 </section>
 
                 <section className={styles.formSection}>
-                    <form className={styles.form}>
-                        <div className={styles.formGroup}>
-                            <label htmlFor="name">Name</label>
-                            <input type="text" id="name" name="name" required />
-                        </div>
-
-                        <div className={styles.formGroup}>
-                            <label htmlFor="email">Email</label>
-                            <input type="email" id="email" name="email" required />
-                        </div>
-
-                        <div className={styles.formGroup}>
-                            <label htmlFor="message">Message</label>
-                            <textarea id="message" name="message" rows={5} required></textarea>
-                        </div>
-
-                        <button type="submit" className={styles.submitBtn}>Send Message</button>
-                    </form>
+                    <Script src="https://js-na2.hsforms.net/forms/embed/243314838.js" strategy="afterInteractive" />
+                    <div className="hs-form-frame" data-region="na2" data-form-id="88278fd8-097e-4749-b4d3-d5286be31440" data-portal-id="243314838"></div>
                 </section>
             </div>
         </main>
