@@ -101,3 +101,11 @@ p {
   border: 1px solid var(--glass-border);
   box-shadow: var(--glass-shadow);
 }
+
+/* HubSpot Form Overrides */
+.hs-form-field>label {
+  display: block !important;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}

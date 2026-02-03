@@ -11,16 +11,8 @@ export default function Contact() {
 
                     <div className={styles.details}>
                         <div className={styles.detailItem}>
-                            <h3>Email</h3>
-                            <a href="mailto:contact@mastermarketing.com">contact@mastermarketing.com</a>
-                        </div>
-                        <div className={styles.detailItem}>
-                            <h3>Phone</h3>
-                            <p>(555) 123-4567</p>
-                        </div>
-                        <div className={styles.detailItem}>
                             <h3>Office</h3>
-                            <p>New York, NY</p>
+                            <p>Cleveland, OH & Northern Ireland</p>
                         </div>
                     </div>
                 </section>
