@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>State of the Clinical Accessory Industry 2026 | Strategic White Paper</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; }
+        
+        /* Custom Chart Container Styling as per requirements */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px; /* Max width to prevent excessive stretching */
+            height: 350px;   /* Base height */
+            margin-left: auto;
+            margin-right: auto;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+
+        /* Custom Scrollbar for cleaner look */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* Interactive Process Flow Styling */
+        .process-step { transition: all 0.3s ease; cursor: pointer; border-left: 4px solid transparent; }
+        .process-step:hover, .process-step.active { background-color: #f0f9ff; border-left-color: #0ea5e9; transform: translateX(5px); }
+        .process-step.active .step-icon { background-color: #0ea5e9; color: white; }
+        
+        /* Tab Navigation */
+        .nav-btn { transition: all 0.2s; border-bottom: 2px solid transparent; }
+        .nav-btn:hover { color: #0f766e; }
+        .nav-btn.active { color: #0f766e; border-bottom-color: #0f766e; font-weight: 600; }
+
+        /* Smooth fade transition for content */
+        .fade-in { animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+    <!-- Chosen Palette: Warm Corporate Neutral (Slate/Gray backgrounds) with "Medical Teal" (#0f766e) as primary and "Data Blue" (#0ea5e9) for visualizations. Amber accents for alerts. -->
+    
+    <!-- Application Structure Plan:
+         1. Hero Header: Hooks the user with the 2026 context and 20% savings promise.
+         2. Executive Dashboard: High-level summary of the "Problem" (Fragmentation) vs "Solution".
+         3. The Fragmentation Crisis (Data View): Uses charts to visualize "Invisible Spend" and SKU bloat.
+         4. Consumption Analysis (Interactive Framework): A clickable step-by-step guide explaining the methodology.
+         5. Strategic Impact (Comparison): Radar chart comparing tactical vs. strategic procurement.
+         6. Savings Simulator: Interactive calculator to personalize the ROI for the user.
+         7. Conclusion/CTA: Final call to action for the C&S audit.
+         
+         Rationale: This structure moves from Problem Awareness -> Deep Dive Analysis -> Methodology -> Strategic Value -> Personalized ROI, following a persuasive sales narrative suitable for C-suite supply chain leaders.
+    -->
+
+    <!-- Visualization & Content Choices:
+         - Fragmented Spend (Bar Chart): Shows SKU count disparities (Current vs Optimal) to prove waste.
+         - Spend Composition (Doughnut): Highlights "Maverick Spend" to visualize the "invisible" problem.
+         - Strategic Maturity (Radar Chart): Compares current operational state vs. C&S partnership model across 5 axes.
+         - Process Flow (HTML/CSS): Clickable list updating a detail pane to explain Consumption Analysis without overwhelming text.
+         - Savings Simulator (JS Inputs): User inputs hospital data to see real-time calculated savings, driving engagement.
+         - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
+    -->
+    
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <!-- Navigation -->
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center gap-2">
+                        <!-- CSS Icon: Pulse Line -->
+                        <div class="h-8 w-8 bg-teal-700 rounded flex items-center justify-center text-white font-bold text-xl">C</div>
+                        <span class="font-bold text-xl text-slate-800 tracking-tight">Cables<span class="text-teal-600">&</span>Sensors</span>
+                    </div>
+                </div>
+                <div class="hidden md:flex space-x-8 items-center" id="nav-container">
+                    <button onclick="navigateTo('exec-summary')" class="nav-btn active px-1 pt-1 text-sm font-medium text-gray-900">Executive Summary</button>
+                    <button onclick="navigateTo('fragmentation')" class="nav-btn px-1 pt-1 text-sm font-medium text-gray-500">The Fragmentation Crisis</button>
+                    <button onclick="navigateTo('framework')" class="nav-btn px-1 pt-1 text-sm font-medium text-gray-500">Consumption Analysis</button>
+                    <button onclick="navigateTo('simulator')" class="nav-btn px-1 pt-1 text-sm font-medium text-gray-500">ROI Simulator</button>
+                </div>
+                <div class="flex items-center">
+                    <button onclick="navigateTo('cta')" class="bg-teal-700 hover:bg-teal-800 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors shadow-sm">
+                        Request 2026 Audit
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu Placeholder (Simplified for single file demo) -->
+    </nav>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow bg-slate-50 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+            <!-- VIEW: Executive Summary -->
+            <section id="exec-summary" class="view-section fade-in">
+                <div class="text-center mb-12">
+                    <span class="inline-block px-3 py-1 rounded-full bg-teal-100 text-teal-800 text-xs font-semibold tracking-wide uppercase mb-2">Industry White Paper 2026</span>
+                    <h1 class="text-3xl md:text-5xl font-bold text-slate-900 mb-4">The State of the Clinical Accessory Industry</h1>
+                    <p class="text-xl text-slate-600 max-w-3xl mx-auto">Solving the Fragmentation Crisis through Strategic Consumption Analysis.</p>
+                </div>
+
+                <!-- Intro Card -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8 mb-8">
+                    <div class="grid md:grid-cols-2 gap-8 items-center">
+                        <div>
+                            <h2 class="text-2xl font-bold text-slate-800 mb-4">The "Invisible" Supply Chain Challenge</h2>
+                            <p class="text-slate-600 mb-4 leading-relaxed">
+                                In 2026, supply chain resilience is no longer just about stock availability—it’s about <strong>data-driven precision</strong>. While hospitals have optimized major capital equipment and pharma, clinical accessories (cables, sensors, lead wires) remain a "forgotten" category.
+                            </p>
+                            <p class="text-slate-600 leading-relaxed">
+                                This "invisible spend" often occurs at the department level, leading to massive redundancy, quality variance, and lost leverage. This dashboard explores how shifting from tactical ordering to <strong>Strategic Consumption Analysis</strong> can recover up to <strong>20% of category spend</strong>.
+                            </p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-slate-50 p-4 rounded-lg border border-slate-100 text-center hover:shadow-md transition-shadow">
+                                <p class="text-4xl font-bold text-teal-600 mb-1">20%</p>
+                                <p class="text-sm text-slate-500 font-medium">Potential Cost Savings</p>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded-lg border border-slate-100 text-center hover:shadow-md transition-shadow">
+                                <p class="text-4xl font-bold text-amber-500 mb-1">15+</p>
+                                <p class="text-sm text-slate-500 font-medium">Avg. Duplicate SKUs per Category</p>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded-lg border border-slate-100 text-center hover:shadow-md transition-shadow">
+                                <p class="text-4xl font-bold text-indigo-600 mb-1">2026</p>
+                                <p class="text-sm text-slate-500 font-medium">Era of Data-Driven Procurement</p>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded-lg border border-slate-100 text-center hover:shadow-md transition-shadow">
+                                <p class="text-4xl font-bold text-slate-700 mb-1">0%</p>
+                                <p class="text-sm text-slate-500 font-medium">Risk on OEM-Compatible Quality</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Key Takeaways Grid -->
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+                        <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center text-red-600 font-bold mb-4">!</div>
+                        <h3 class="font-bold text-lg mb-2">The Hidden Liability</h3>
+                        <p class="text-sm text-slate-600">Having 15 different types of SpO2 sensors is not "safety stock"—it is an operational liability that complicates clinical workflows.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+                        <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold mb-4">↗</div>
+                        <h3 class="font-bold text-lg mb-2">The Strategic Shift</h3>
+                        <p class="text-sm text-slate-600">Leading IDNs are moving from transactional "part ordering" to holistic "category management" using predictive data.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+                        <div class="w-10 h-10 bg-teal-100 rounded-full flex items-center justify-center text-teal-600 font-bold mb-4">✓</div>
+                        <h3 class="font-bold text-lg mb-2">The Standardization Win</h3>
+                        <p class="text-sm text-slate-600">Consolidating vendors through Cables & Sensors unlocks volume pricing without sacrificing clinical quality.</p>
+                    </div>
+                </div>
+                
+                <div class="mt-8 text-center">
+                    <button onclick="navigateTo('fragmentation')" class="text-teal-700 font-medium hover:text-teal-900 inline-flex items-center gap-2">
+                        Explore the Data <span class="text-xl">↓</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- VIEW: Fragmentation Crisis -->
+            <section id="fragmentation" class="view-section hidden fade-in">
+                <div class="mb-8">
+                    <h2 class="text-3xl font-bold text-slate-900 mb-3">Section 1: The Hidden Cost of Variety</h2>
+                    <p class="text-slate-600 max-w-4xl">
+                        Why is clinical accessory spend so difficult to control? The answer lies in <strong>fragmentation</strong>. 
+                        Unlike capital equipment, accessories are often purchased via P-Cards or departmental budgets ("Rogue Spend"), bypassing central supply chain scrutiny. 
+                        This leads to SKU proliferation, where a single hospital system might stock dozens of functionally identical cables.
+                    </p>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-8 mb-8">
+                    <!-- Chart: SKU Proliferation -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                        <div class="mb-4">
+                            <h3 class="font-bold text-lg text-slate-800">SKU Bloat: Current vs. Optimized</h3>
+                            <p class="text-sm text-slate-500">Average number of distinct SKUs per category in a typical IDN vs. Optimized Target.</p>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="skuChart"></canvas>
+                        </div>
+                        <div class="mt-4 bg-amber-50 p-3 rounded border border-amber-100 text-xs text-amber-800">
+                            <strong>Insight:</strong> Reducing SpO2 sensor varieties from 14 to 3 reduces training errors and simplifies inventory management.
+                        </div>
+                    </div>
+
+                    <!-- Chart: Spend Composition -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 flex flex-col">
+                        <div class="mb-4">
+                            <h3 class="font-bold text-lg text-slate-800">The "Iceberg" Effect: Source of Spend</h3>
+                            <p class="text-sm text-slate-500">Visible Contract Spend vs. Hidden Departmental Spend.</p>
+                        </div>
+                        <div class="chart-container flex-grow flex items-center justify-center">
+                            <canvas id="spendChart"></canvas>
+                        </div>
+                        <div class="mt-4">
+                            <p class="text-sm text-slate-600">
+                                <strong>Rogue Spend (45%)</strong> represents purchases made by Nursing, Biomed, or ER directly from disparate vendors, often at a 30-40% premium over negotiated rates.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Strategic Comparison Radar -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div class="md:col-span-1">
+                            <h3 class="font-bold text-xl text-slate-800 mb-4">From Tactical to Strategic</h3>
+                            <p class="text-slate-600 text-sm mb-4">
+                                The 2026 market demands a shift. "Tactical Buying" focuses on unit price but ignores the total cost of ownership (shipping, returns, defects, inventory carrying costs).
+                            </p>
+                            <p class="text-slate-600 text-sm mb-6">
+                                <strong>Strategic Category Management</strong>, championed by C&S, optimizes the entire value chain.
+                            </p>
+                            <ul class="space-y-3 text-sm">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-red-500 font-bold">×</span>
+                                    <span class="text-slate-500">Transactional: High variety, low visibility.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-teal-600 font-bold">✓</span>
+                                    <span class="text-slate-800 font-medium">Strategic: Standardized, data-rich, resilient.</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="md:col-span-2">
+                            <div class="chart-container">
+                                <canvas id="radarChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW: Consumption Analysis Framework -->
+            <section id="framework" class="view-section hidden fade-in">
+                <div class="mb-8">
+                    <h2 class="text-3xl font-bold text-slate-900 mb-3">Section 3: The Consumption Analysis Framework</h2>
+                    <p class="text-slate-600 max-w-4xl">
+                        How do we solve the fragmentation crisis? We don't just "sell cables." We perform a comprehensive <strong>Consumption Analysis</strong>. 
+                        This 4-step proprietary framework ingests your purchasing data to reveal overlapping spend and consolidation opportunities.
+                        <br><span class="text-sm text-gray-500 italic mt-2 block">Click the steps below to explore the methodology.</span>
+                    </p>
+                </div>
+
+                <div class="grid lg:grid-cols-12 gap-6 h-auto lg:h-[500px]">
+                    <!-- Interactive List -->
+                    <div class="lg:col-span-4 flex flex-col space-y-3">
+                        <div onclick="setFrameworkStep(0)" class="process-step active p-4 bg-white rounded-lg shadow-sm border border-slate-200 flex items-center gap-4">
+                            <div class="step-icon w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-sm font-bold text-slate-600">1</div>
+                            <div>
+                                <h4 class="font-bold text-slate-800">Data Ingestion</h4>
+                                <p class="text-xs text-slate-500">Aggregating the "invisible" spend.</p>
+                            </div>
+                        </div>
+                        <div onclick="setFrameworkStep(1)" class="process-step p-4 bg-white rounded-lg shadow-sm border border-slate-200 flex items-center gap-4">
+                            <div class="step-icon w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-sm font-bold text-slate-600">2</div>
+                            <div>
+                                <h4 class="font-bold text-slate-800">SKU Rationalization</h4>
+                                <p class="text-xs text-slate-500">Identifying functional equivalents.</p>
+                            </div>
+                        </div>
+                        <div onclick="setFrameworkStep(2)" class="process-step p-4 bg-white rounded-lg shadow-sm border border-slate-200 flex items-center gap-4">
+                            <div class="step-icon w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-sm font-bold text-slate-600">3</div>
+                            <div>
+                                <h4 class="font-bold text-slate-800">Quality Standardization</h4>
+                                <p class="text-xs text-slate-500">Benchmarking against OEM specs.</p>
+                            </div>
+                        </div>
+                        <div onclick="setFrameworkStep(3)" class="process-step p-4 bg-white rounded-lg shadow-sm border border-slate-200 flex items-center gap-4">
+                            <div class="step-icon w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-sm font-bold text-slate-600">4</div>
+                            <div>
+                                <h4 class="font-bold text-slate-800">Strategic Implementation</h4>
+                                <p class="text-xs text-slate-500">Rolling out the streamlined catalog.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Detail Pane -->
+                    <div class="lg:col-span-8 bg-white rounded-xl shadow-sm border border-slate-200 p-8 flex flex-col justify-center relative overflow-hidden">
+                        <!-- Background Decorative Element -->
+                        <div class="absolute top-0 right-0 p-10 opacity-5 pointer-events-none">
+                            <div class="text-9xl font-bold text-slate-900" id="step-number-bg">1</div>
+                        </div>
+
+                        <h3 class="text-2xl font-bold text-teal-700 mb-4" id="step-title">Step 1: Data Ingestion & Mapping</h3>
+                        <p class="text-slate-700 text-lg mb-6 leading-relaxed" id="step-desc">
+                            We don't just look at your warehouse orders. We ingest AP usage reports, P-Card statements, and biomed purchase logs. We map every Manufacturer Part Number (MPN) to a standardized generic description.
+                        </p>
+
+                        <div class="bg-slate-50 rounded-lg p-5 border border-slate-100">
+                            <h5 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">The Outcome</h5>
+                            <div id="step-outcome" class="flex items-center gap-3 text-slate-800 font-medium">
+                                <span class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs">VISIBILITY</span>
+                                A single, unified view of total category spend across all facilities.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW: ROI Simulator -->
+            <section id="simulator" class="view-section hidden fade-in">
+                <div class="mb-8">
+                    <h2 class="text-3xl font-bold text-slate-900 mb-3">Savings Potential Simulator</h2>
+                    <p class="text-slate-600 max-w-4xl">
+                        Based on our 2026 industry benchmarks, estimate the financial impact of partnering with Cables & Sensors. 
+                        Adjust the sliders below to match your health system's profile.
+                    </p>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <!-- Controls -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                        <h3 class="font-bold text-gray-800 mb-6 border-b pb-2">Your System Profile</h3>
+                        
+                        <div class="mb-8">
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Annual Clinical Accessory Spend ($)</label>
+                            <input type="range" min="100000" max="5000000" step="50000" value="1000000" id="spendInput" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-teal-600">
+                            <div class="flex justify-between mt-2 text-xs text-slate-500">
+                                <span>$100k</span>
+                                <span id="spendValue" class="font-bold text-teal-700 text-base">$1,000,000</span>
+                                <span>$5M</span>
+                            </div>
+                        </div>
+
+                        <div class="mb-8">
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Current SKU Complexity (Est.)</label>
+                            <div class="flex gap-4 mb-2">
+                                <button onclick="setComplexity(0.15)" class="complexity-btn w-1/3 py-2 border rounded text-sm hover:bg-slate-50 active-complexity ring-2 ring-teal-500 bg-teal-50 text-teal-800 border-teal-500">Low<br><span class="text-xs font-normal opacity-75">Mostly Standardized</span></button>
+                                <button onclick="setComplexity(0.20)" class="complexity-btn w-1/3 py-2 border rounded text-sm hover:bg-slate-50 border-gray-200">Medium<br><span class="text-xs font-normal opacity-75">Some Fragmentation</span></button>
+                                <button onclick="setComplexity(0.28)" class="complexity-btn w-1/3 py-2 border rounded text-sm hover:bg-slate-50 border-gray-200">High<br><span class="text-xs font-normal opacity-75">High Maverick Spend</span></button>
+                            </div>
+                            <p class="text-xs text-slate-500 italic">Complexity factor determines potential savings percentage based on historical audit data.</p>
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Number of Facilities</label>
+                            <input type="range" min="1" max="50" step="1" value="5" id="facilityInput" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-teal-600">
+                             <div class="flex justify-between mt-2 text-xs text-slate-500">
+                                <span>1</span>
+                                <span id="facilityValue" class="font-bold text-slate-800 text-base">5</span>
+                                <span>50</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Results -->
+                    <div class="bg-slate-800 text-white p-6 rounded-xl shadow-lg flex flex-col justify-center relative overflow-hidden">
+                        <div class="absolute top-0 right-0 p-4 opacity-10">
+                            <!-- Unicode dollar sign decorative -->
+                            <span class="text-9xl font-serif">$</span>
+                        </div>
+
+                        <h3 class="text-lg font-medium text-slate-300 mb-8">Projected Annual Impact</h3>
+
+                        <div class="mb-8">
+                            <p class="text-sm text-slate-400 mb-1">Total Estimated Savings</p>
+                            <div class="text-5xl font-bold text-teal-400" id="savingsDisplay">$200,000</div>
+                            <p class="text-xs text-teal-200/70 mt-2">*Based on SKU rationalization and direct-to-manufacturer pricing.</p>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-6 pt-6 border-t border-slate-600">
+                            <div>
+                                <p class="text-sm text-slate-400 mb-1">SKU Reduction Target</p>
+                                <div class="text-2xl font-bold text-white" id="skuReductionDisplay">-450</div>
+                                <p class="text-xs text-slate-400">Items removed from catalog</p>
+                            </div>
+                            <div>
+                                <p class="text-sm text-slate-400 mb-1">Process Hours Saved</p>
+                                <div class="text-2xl font-bold text-white" id="hoursDisplay">320</div>
+                                <p class="text-xs text-slate-400">Admin time annually</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW: CTA -->
+            <section id="cta" class="view-section hidden fade-in py-12">
+                <div class="bg-gradient-to-br from-teal-900 to-slate-900 rounded-2xl shadow-xl overflow-hidden">
+                    <div class="grid md:grid-cols-2">
+                        <div class="p-8 md:p-12 text-white flex flex-col justify-center">
+                            <h2 class="text-3xl font-bold mb-4">Partner with Cables & Sensors</h2>
+                            <p class="text-slate-300 mb-8 leading-relaxed">
+                                Don't let invisible spend drain your budget. In 2026, the most resilient supply chains are built on data transparency. 
+                                <br><br>
+                                Start with our <strong>Complimentary Consumption Analysis</strong>. We'll take your PO data and build a custom roadmap to 20% savings within 2 weeks.
+                            </p>
+                            <ul class="space-y-3 mb-8">
+                                <li class="flex items-center gap-3">
+                                    <div class="bg-teal-500/20 p-1 rounded text-teal-300">✓</div>
+                                    <span>OEM-Quality accessories at 20-40% less cost</span>
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <div class="bg-teal-500/20 p-1 rounded text-teal-300">✓</div>
+                                    <span>Zero-risk trial & validation program</span>
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <div class="bg-teal-500/20 p-1 rounded text-teal-300">✓</div>
+                                    <span>Full data transparency and reporting</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="bg-white p-8 md:p-12 flex flex-col justify-center">
+                            <h3 class="text-xl font-bold text-slate-900 mb-6">Request Your Consumption Audit</h3>
+                            <form class="space-y-4" onsubmit="event.preventDefault(); alert('Thank you. A C&S Strategic Consultant will contact you shortly.');">
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-700 mb-1">Work Email</label>
+                                    <input type="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500" placeholder="director@hospital.org">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-700 mb-1">Health System Name</label>
+                                    <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500" placeholder="St. Luke's Health">
+                                </div>
+                                <div class="pt-2">
+                                    <button type="submit" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 rounded-lg transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                                        Schedule Briefing
+                                    </button>
+                                </div>
+                                <p class="text-xs text-center text-slate-500 mt-4">
+                                    No commitment required. Confidentiality agreement provided.
+                                </p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="bg-white border-t border-gray-200 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
+            <div class="text-sm text-gray-500">
+                &copy; 2026 Cables & Sensors. Strategic White Paper Series.
+            </div>
+            <div class="flex space-x-6 mt-4 md:mt-0">
+                <a href="#" class="text-gray-400 hover:text-gray-500">Privacy</a>
+                <a href="#" class="text-gray-400 hover:text-gray-500">Terms</a>
+                <a href="#" class="text-gray-400 hover:text-gray-500">Contact Support</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Global State
+        const state = {
+            currentView: 'exec-summary',
+            complexityFactor: 0.15,
+            spend: 1000000,
+            facilities: 5
+        };
+
+        // DOM Elements
+        const views = document.querySelectorAll('.view-section');
+        const navBtns = document.querySelectorAll('.nav-btn');
+
+        // Navigation Handler
+        function navigateTo(viewId) {
+            // Update UI
+            views.forEach(v => {
+                if (v.id === viewId) {
+                    v.classList.remove('hidden');
+                    // Trigger chart resize if entering a chart view
+                    if(viewId === 'fragmentation' || viewId === 'strategic') {
+                        setTimeout(() => {
+                            // resizing handled by Chart.js automatically, but sometimes needs a nudge in hidden tabs
+                        }, 100);
+                    }
+                } else {
+                    v.classList.add('hidden');
+                }
+            });
+
+            // Update Nav Buttons
+            navBtns.forEach(btn => {
+                if (btn.getAttribute('onclick').includes(viewId)) {
+                    btn.classList.add('active', 'text-gray-900', 'border-teal-600');
+                    btn.classList.remove('text-gray-500', 'border-transparent');
+                } else {
+                    btn.classList.remove('active', 'text-gray-900', 'border-teal-600');
+                    btn.classList.add('text-gray-500', 'border-transparent');
+                }
+            });
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Framework Content Data
+        const frameworkData = [
+            {
+                title: "Step 1: Data Ingestion & Mapping",
+                desc: "We don't just look at your warehouse orders. We ingest AP usage reports, P-Card statements, and biomed purchase logs. We map every Manufacturer Part Number (MPN) to a standardized generic description to reveal the true volume.",
+                outcome: "VISIBILITY: A single, unified view of total category spend across all facilities.",
+                bg: "1"
+            },
+            {
+                title: "Step 2: SKU Rationalization",
+                desc: "Our algorithms identify functional equivalents. We often find systems buying the same SpO2 sensor from 4 different vendors at 4 different prices. We flag these for consolidation.",
+                outcome: "SIMPLICITY: Reducing active SKUs by an average of 45%.",
+                bg: "2"
+            },
+            {
+                title: "Step 3: Quality Standardization",
+                desc: "We cross-reference the consolidated list against OEM specifications. Every C&S product is rigorously tested to match or exceed the original equipment's performance parameters.",
+                outcome: "CONFIDENCE: Lower costs with zero compromise on patient safety.",
+                bg: "3"
+            },
+            {
+                title: "Step 4: Strategic Implementation",
+                desc: "We don't just dump a spreadsheet. We assist with stock changeovers, biomed training, and set up a streamlined ordering portal for your purchasing teams.",
+                outcome: "CONTROL: Long-term price stability and supply chain resilience.",
+                bg: "4"
+            }
+        ];
+
+        // Framework Interaction
+        function setFrameworkStep(index) {
+            const steps = document.querySelectorAll('.process-step');
+            steps.forEach((s, i) => {
+                if (i === index) {
+                    s.classList.add('active');
+                } else {
+                    s.classList.remove('active');
+                }
+            });
+
+            const data = frameworkData[index];
+            document.getElementById('step-title').textContent = data.title;
+            document.getElementById('step-desc').textContent = data.desc;
+            document.getElementById('step-outcome').innerHTML = `<span class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs mr-2 uppercase font-bold">${data.outcome.split(':')[0]}</span> ${data.outcome.split(':')[1]}`;
+            document.getElementById('step-number-bg').textContent = data.bg;
+        }
+
+        // ROI Calculator Logic
+        function setComplexity(factor) {
+            state.complexityFactor = factor;
+            
+            // Update buttons visually
+            const btns = document.querySelectorAll('.complexity-btn');
+            btns.forEach(btn => {
+                if (btn.getAttribute('onclick').includes(factor)) {
+                    btn.classList.add('ring-2', 'ring-teal-500', 'bg-teal-50', 'text-teal-800', 'border-teal-500');
+                    btn.classList.remove('border-gray-200');
+                } else {
+                    btn.classList.remove('ring-2', 'ring-teal-500', 'bg-teal-50', 'text-teal-800', 'border-teal-500');
+                    btn.classList.add('border-gray-200');
+                }
+            });
+            updateCalculator();
+        }
+
+        function updateCalculator() {
+            const spend = parseInt(document.getElementById('spendInput').value);
+            const facilities = parseInt(document.getElementById('facilityInput').value);
+            state.spend = spend;
+            
+            // Calculations
+            const savings = spend * state.complexityFactor;
+            const skuReduction = Math.round(facilities * 85); // Arbitrary logic for demo: 85 redundant SKUs per facility
+            const hours = Math.round(skuReduction * 0.7); // 0.7 hours admin time saved per SKU managed
+
+            // DOM Updates
+            document.getElementById('spendValue').textContent = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(spend);
+            document.getElementById('facilityValue').textContent = facilities;
+            
+            // Result Animation (simple text update for now)
+            document.getElementById('savingsDisplay').textContent = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(savings);
+            document.getElementById('skuReductionDisplay').textContent = "-" + skuReduction;
+            document.getElementById('hoursDisplay').textContent = hours;
+        }
+
+        // Event Listeners for Calculator
+        document.getElementById('spendInput').addEventListener('input', updateCalculator);
+        document.getElementById('facilityInput').addEventListener('input', updateCalculator);
+
+
+        // Chart Initialization
+        window.addEventListener('DOMContentLoaded', () => {
+            // 1. SKU Chart (Bar)
+            const ctxSku = document.getElementById('skuChart').getContext('2d');
+            new Chart(ctxSku, {
+                type: 'bar',
+                data: {
+                    labels: ['SpO2 Sensors', 'ECG Leads', 'BP Cuffs', 'Temp Probes', 'O2 Cables'],
+                    datasets: [
+                        {
+                            label: 'Typical IDN (Current State)',
+                            data: [14, 12, 8, 6, 9],
+                            backgroundColor: '#cbd5e1', // Slate 300
+                            borderRadius: 4
+                        },
+                        {
+                            label: 'Optimized (Goal)',
+                            data: [3, 4, 2, 2, 2],
+                            backgroundColor: '#0f766e', // Teal 700
+                            borderRadius: 4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' },
+                        title: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: { display: true, text: 'Number of Unique SKUs' }
+                        },
+                        x: {
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+
+            // 2. Spend Composition (Doughnut)
+            const ctxSpend = document.getElementById('spendChart').getContext('2d');
+            new Chart(ctxSpend, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Contracted / Visible Spend', 'Rogue / Departmental Spend', 'Emergency / Spot Buys'],
+                    datasets: [{
+                        data: [55, 35, 10],
+                        backgroundColor: [
+                            '#0f766e', // Teal 700 (Good)
+                            '#f59e0b', // Amber 500 (Warning)
+                            '#ef4444'  // Red 500 (Bad)
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: { position: 'right' }
+                    }
+                }
+            });
+
+            // 3. Radar Chart
+            const ctxRadar = document.getElementById('radarChart').getContext('2d');
+            new Chart(ctxRadar, {
+                type: 'radar',
+                data: {
+                    labels: ['Cost Savings', 'Supply Resilience', 'Data Visibility', 'Quality Consistency', 'Clinical Satisfaction'],
+                    datasets: [{
+                        label: 'Transactional Buying',
+                        data: [60, 40, 20, 50, 70],
+                        fill: true,
+                        backgroundColor: 'rgba(245, 158, 11, 0.2)', // Amber
+                        borderColor: 'rgb(245, 158, 11)',
+                        pointBackgroundColor: 'rgb(245, 158, 11)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgb(245, 158, 11)'
+                    }, {
+                        label: 'C&S Strategic Partner',
+                        data: [90, 95, 100, 95, 90],
+                        fill: true,
+                        backgroundColor: 'rgba(15, 118, 110, 0.2)', // Teal
+                        borderColor: 'rgb(15, 118, 110)',
+                        pointBackgroundColor: 'rgb(15, 118, 110)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgb(15, 118, 110)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { display: true, color: '#e2e8f0' },
+                            grid: { color: '#e2e8f0' },
+                            suggestedMin: 0,
+                            suggestedMax: 100,
+                            ticks: { display: false } // Hide numbers on axis for cleaner look
+                        }
+                    },
+                    plugins: {
+                        legend: { position: 'top' }
+                    }
+                }
+            });
+
+            // Initial calculation
+            updateCalculator();
+        });
+
+    </script>
+</body>
+</html>
