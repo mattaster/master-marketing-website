@@ -5,6 +5,9 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "MAster Marketing and Strategy",
   description: "Expert marketing and strategy consulting for high-growth businesses.",
+  icons: {
+    icon: '/favicon.png',
+  },
 };
 
 import Header from "@/components/Header";
