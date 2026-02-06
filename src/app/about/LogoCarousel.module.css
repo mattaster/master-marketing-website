@@ -1,0 +1,66 @@
+.carouselSection {
+    margin-top: 6rem;
+    padding: 4rem 0;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    background: #ffffff;
+    /* White background as requested */
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 3rem;
+    font-size: 1.5rem;
+    color: #333;
+    /* Darker text for white background */
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 500;
+}
+
+.scroller {
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+    /* Gradient mask to fade in/out */
+    mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+}
+
+.inner {
+    display: flex;
+    gap: 4rem;
+    padding: 1rem 0;
+    white-space: nowrap;
+    width: max-content;
+}
+
+.logoContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80px;
+    width: 160px;
+    /* Fixed width to ensure spacing is even if logos vary wildly */
+    position: relative;
+    transition: all 0.3s ease;
+    filter: grayscale(100%) opacity(0.7);
+}
+
+.logoContainer:hover {
+    filter: grayscale(0%) opacity(1);
+    transform: scale(1.05);
+}
+
+.logoImage {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    /* 
+       Attempting to handle backgrounds:
+       If logos have white backgrounds and the site is dark, 
+       mix-blend-mode: screen (if using invert) or just consistent styling.
+       Here we focus on sizing uniformity as requested.
+    */
+}

@@ -1,4 +1,6 @@
 import styles from './about.module.css';
+import MetricsGrid from './MetricsGrid';
+import LogoCarousel from './LogoCarousel';
 
 export default function About() {
     return (
@@ -22,7 +24,17 @@ export default function About() {
                     <h2>Our Mission</h2>
                     <p>To empower businesses to achieve their full potential through clear, actionable strategy and world-class marketing execution.</p>
                 </div>
+
+                <div className={styles.workSection}>
+                    <h2 style={{ textAlign: 'center', marginTop: '6rem', marginBottom: '1rem', fontSize: '2.5rem' }}>About Our Work</h2>
+                    <p style={{ textAlign: 'center', color: 'var(--text-secondary)', maxWidth: '600px', margin: '0 auto 2rem' }}>
+                        Driving measurable results through data-backed strategies and creative execution.
+                    </p>
+                    <MetricsGrid />
+                </div>
             </section>
+
+            <LogoCarousel />
         </main>
     );
 }
