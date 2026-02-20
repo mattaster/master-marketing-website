@@ -13,6 +13,7 @@ export const metadata: Metadata = {
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
+import ApolloTracker from "@/components/ApolloTracker";
 
 export default function RootLayout({
   children,
@@ -23,6 +24,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className="antialiased">
         <GoogleAnalytics gaId="G-MEASUREMENT_ID" />
+        <ApolloTracker />
         <Header />
         {children}
         <Footer />
