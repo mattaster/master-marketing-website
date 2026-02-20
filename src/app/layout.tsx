@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="antialiased">
-        <GoogleAnalytics gaId="G-MEASUREMENT_ID" />
+        <GoogleAnalytics gaId="G-EME5Q8LQWD" />
         <ApolloTracker />
         <Header />
         {children}
