@@ -14,6 +14,10 @@ export default function Services() {
             description: "Leadership without the overhead. We step in to lead your marketing team, define strategy, and execute plans for scalable growth.",
         },
         {
+            title: "Virtual SDR Development",
+            description: "Build an elite virtual sales department. We source, train, and manage high-performing SDRs to fuel your revenue engine.",
+        },
+        {
             title: "Brand Strategy",
             description: "Redefine who you are. We help you articulate your value proposition, mission, and visual identity to resonate with your target audience.",
         },
