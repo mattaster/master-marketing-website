@@ -1,16 +1,17 @@
 import Link from 'next/link';
 import styles from './services.module.css';
 
+interface Service {
+    title: string;
+    description: string;
+    href?: string;
+}
+
 export default function Services() {
-    const services = [
+    const services: Service[] = [
         {
             title: "Fractional CMO",
             description: "Leadership without the overhead. We step in to lead your marketing team, define strategy, and execute plans for scalable growth.",
-        },
-        {
-            title: "Virtual SDR Development",
-            description: "Build an elite virtual sales department. We source, train, and manage high-performing SDRs to fuel your revenue engine.",
-            href: "/services/virtual-sdr"
         },
         {
             title: "Brand Strategy",
