@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import styles from './services.module.css';
 
 export default function Services() {
@@ -5,6 +6,11 @@ export default function Services() {
         {
             title: "Fractional CMO",
             description: "Leadership without the overhead. We step in to lead your marketing team, define strategy, and execute plans for scalable growth.",
+        },
+        {
+            title: "Virtual SDR Development",
+            description: "Build an elite virtual sales department. We source, train, and manage high-performing SDRs to fuel your revenue engine.",
+            href: "/services/virtual-sdr"
         },
         {
             title: "Brand Strategy",
@@ -32,6 +38,11 @@ export default function Services() {
                     <div key={index} className={styles.card}>
                         <h2>{service.title}</h2>
                         <p>{service.description}</p>
+                        {service.href && (
+                            <Link href={service.href} className={styles.learnMore}>
+                                Learn More &rarr;
+                            </Link>
+                        )}
                     </div>
                 ))}
             </div>
