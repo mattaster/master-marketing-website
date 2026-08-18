@@ -119,3 +119,48 @@ p {
   font-weight: 600;
   color: var(--text-primary);
 }
+
+/* Documentation / Case Study content */
+.doc-content {
+  max-width: 980px;
+  margin: 3.5rem auto 4rem;
+  padding: 2.25rem 2.5rem;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  box-shadow: 0 8px 30px rgba(2,6,23,0.12);
+  border: 1px solid rgba(0,0,0,0.04);
+}
+.doc-content h1 { font-size: 2.25rem; margin-bottom: 0.5rem; color: var(--text-primary); }
+.doc-content h2 { font-size: 1.5rem; margin-top: 1.25rem; margin-bottom: 0.5rem; color: var(--text-primary); }
+.doc-content p { color: var(--text-secondary); margin-bottom: 0.85rem; }
+.doc-content ul { margin-left: 1.25rem; margin-bottom: 0.85rem; }
+.doc-content li { margin-bottom: 0.35rem; color: var(--text-secondary); }
+.doc-content pre { background: rgba(0,0,0,0.04); padding: 1rem; border-radius: 8px; overflow:auto; }
+.doc-back { display:inline-block; margin-bottom:1rem; color:var(--brand-primary); }
+
+/* Improve anchor link visibility inside docs */
+.doc-content a { color: var(--brand-primary); text-decoration: underline; }
+
+/* Ensure content is not hidden behind sticky header on small screens */
+main > .doc-content { margin-top: 5.25rem; }
+
+/* Case study grid and cards */
+.case-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.case-card {
+  background: var(--bg-color);
+  border-radius: var(--radius-sm);
+  padding: 1rem 1rem;
+  border: 1px solid rgba(0,0,0,0.04);
+  box-shadow: 0 6px 20px rgba(2,6,23,0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.case-card h3 { margin: 0; font-size: 1.05rem; }
+.case-card .excerpt { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 0.5rem; }
+.read-more { margin-top: auto; color: var(--brand-primary); font-weight: 600; }

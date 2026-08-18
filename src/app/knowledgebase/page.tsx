@@ -1,11 +1,8 @@
 import fs from 'fs';
 import path from 'path';
-import { notFound } from 'next/navigation';
 
 function markdownToHtml(md: string) {
-  // Very small markdown -> HTML converter for common elements used in the docs
   const escapeHtml = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-  // handle code fences
   md = md.replace(/```([\s\S]*?)```/g, (_, code) => `<pre><code>${escapeHtml(code)}</code></pre>`);
   const lines = md.split(/\r?\n/);
   let out = '';
@@ -29,41 +26,27 @@ function markdownToHtml(md: string) {
   return out;
 
   function processInline(text: string) {
-    // escape first
     let t = escapeHtml(text);
-    // links [text](url)
     t = t.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
-    // bold **text**
     t = t.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-    // italic *text*
     t = t.replace(/\*([^*]+)\*/g, '<em>$1</em>');
     return t;
   }
 }
 
-export async function generateStaticParams() {
-  const fs = await import('fs');
-  const path = await import('path');
-  const docsDir = path.join(process.cwd(), 'docs', 'case-studies');
-  let files: string[] = [];
+export default function KnowledgebasePage() {
+  const filePath = path.join(process.cwd(), 'docs', 'aeo-knowledgebase.md');
+  let md = '';
   try {
-    files = fs.readdirSync(docsDir).filter((f: string) => f.endsWith('.md'));
+    md = fs.readFileSync(filePath, 'utf8');
   } catch (e) {
-    files = [];
+    md = '# Knowledgebase not found';
   }
-  return files.map((f: string) => ({ slug: f.replace(/\.md$/, '') }));
-}
-
-export default async function CaseStudyPage({ params }: { params: { slug: string } | Promise<{ slug: string }> }) {
-  const { slug } = await params as { slug: string };
-  const filePath = path.join(process.cwd(), 'docs', 'case-studies', `${slug}.md`);
-  if (!fs.existsSync(filePath)) return notFound();
-  const md = fs.readFileSync(filePath, 'utf8');
   const html = markdownToHtml(md);
   return (
     <main>
       <div className="doc-content">
-        <a className="doc-back" href="/case-studies">← Back to case studies</a>
+        <a className="doc-back" href="/">← Home</a>
         <div dangerouslySetInnerHTML={{ __html: html }} />
       </div>
     </main>

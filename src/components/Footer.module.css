@@ -37,6 +37,12 @@
     justify-content: center;
 }
 
+.siteLink {
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 600;
+    align-self: center;
+}
+
 .links a:hover {
     color: white;
     transform: translateY(-3px);
