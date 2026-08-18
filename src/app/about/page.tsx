@@ -16,7 +16,7 @@ export default function About() {
                         Matt Aster is a results-oriented executive with a proven track record of driving growth for businesses across various sectors. With a deep expertise in both marketing strategy and operational execution, Matt helps companies navigate the complexities of modern business landscapes.
                     </p>
                     <p>
-                        MAster Marketing was founded on the principle that true growth comes from a holistic understanding of the market, the customer, and the product. We don't just deliver campaigns; we deliver sustainable business strategies.
+                        MAster Marketing & Strategy was founded on the principle that true growth comes from a holistic understanding of the market, the customer, and the product. We don't just deliver campaigns; we deliver sustainable business strategies.
                     </p>
                 </div>
 

@@ -15,7 +15,7 @@ export default function Services() {
         },
         {
             title: "Virtual SDR Development",
-            description: "Build an elite virtual sales department. We source, train, and manage high-performing SDRs to fuel your revenue engine.",
+            description: "Build an elite virtual sales department. We source, train, and manage virtual SDRs to fuel your revenue engine.",
         },
         {
             title: "Brand Strategy",
